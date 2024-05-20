@@ -84,8 +84,8 @@ class Profiler:
 
 # Check Python version number. sys.version_info gives version as a tuple, e.g. if (3,7,2,'final',0) for version 3.7.2.
 # Unlike many languages, Python can compare two tuples in the same way that you can compare numbers.
-if sys.version_info < (3,5):
-    print("This game requires at least version 3.5 of Python. Please download it from www.python.org")
+if sys.version_info < (3,6):
+    print("This game requires at least version 3.6 of Python. Please download it from www.python.org")
     sys.exit()
 
 # Check Pygame Zero version. This is a bit trickier because Pygame Zero only lets us get its version number as a string.

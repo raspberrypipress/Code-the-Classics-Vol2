@@ -11,7 +11,7 @@
 #import ctypes
 #ctypes.windll.user32.SetProcessDPIAware()
 
-import pgzero, pgzrun, pygame, sys, json
+import pgzero, pgzrun, pygame, sys, json, time
 from abc import ABC, abstractmethod
 from enum import Enum
 from random import randint, choice
@@ -58,17 +58,14 @@ DEBUG_PROFILING = False
 # These symbols substitute for the controller button images when displaying text.
 # The symbols representing these images must be ones that aren't actually used themselves, e.g. we don't use the
 # percent sign in text
-SPECIAL_FONT_SYMBOLS = {'ps_x':'£', 'xb_a':'%'}
+SPECIAL_FONT_SYMBOLS = {'xb_a':'%'}
 
 # Create a version of SPECIAL_FONT_SYMBOLS where the keys and values are swapped
-SPECIAL_FONT_SYMBOLS_INVERSE = {}
-for key, value in SPECIAL_FONT_SYMBOLS.items():
-    SPECIAL_FONT_SYMBOLS_INVERSE[value] = key
+SPECIAL_FONT_SYMBOLS_INVERSE = dict((v,k) for k,v in SPECIAL_FONT_SYMBOLS.items())
 
 debug_drawcalls = []
 
-import time
-
+# Class for measuring how long code takes to run
 class Profiler:
     def __init__(self, name=""):
         self.start_time = time.perf_counter()
@@ -2372,8 +2369,7 @@ def draw():
         logo_img = images.title0 if total_frames // 20 % 2 == 0 else images.title1
         screen.blit(logo_img, (WIDTH//2 - logo_img.get_width() // 2, HEIGHT//2 - logo_img.get_height() // 2))
 
-        draw_text("PRESS " + SPECIAL_FONT_SYMBOLS["ps_x"] + SPECIAL_FONT_SYMBOLS["xb_a"] + " OR Z",
-                  WIDTH//2, HEIGHT - 50, True)
+        draw_text(f"PRESS {SPECIAL_FONT_SYMBOLS['xb_a']} OR Z",  WIDTH//2, HEIGHT - 50, True)
 
     elif state == State.CONTROLS:
         screen.fill((0,0,0))

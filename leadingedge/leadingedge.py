@@ -131,6 +131,14 @@ ANCHOR_CENTRE_BOTTOM = ("center", "bottom")
 
 FIXED_TIMESTEP = 1/60
 
+# These symbols substitute for the controller button images when displaying text.
+# The symbols representing these images must be ones that aren't actually used themselves, e.g. we don't use the
+# percent sign in text
+SPECIAL_FONT_SYMBOLS = {'xb_a':'%'}
+
+# Create a version of SPECIAL_FONT_SYMBOLS where the keys and values are swapped
+SPECIAL_FONT_SYMBOLS_INVERSE = dict((v,k) for k,v in SPECIAL_FONT_SYMBOLS.items())
+
 # A black image whose alpha (transparency) we vary, to fade the screen to black during the title screen
 fade_to_black_image = pygame.Surface((WIDTH, HEIGHT))
 
@@ -193,7 +201,10 @@ def get_char_image_and_width(char, font):
     if char == " ":
         return None, 30
     else:
-        image = getattr(images, font + "0" + str(ord(char)))
+        if char in SPECIAL_FONT_SYMBOLS_INVERSE:
+            image = getattr(images, SPECIAL_FONT_SYMBOLS_INVERSE[char])
+        else:
+            image = getattr(images, font + "0" + str(ord(char)))
         return image, image.get_width()
 
 TEXT_GAP_X = {"font":-6, "status1b_":0, "status2_":0} # Characters in main font are italic so should overlap a little
@@ -1594,13 +1605,13 @@ def draw():
             fade_to_black_image.fill((0,0,0))
             screen.blit(fade_to_black_image, (0, 0))
 
+        # Construct start game text
         # On macOS, encourage the user to use Z instead of left control to accelerate, because
         # Ctrl+arrow is the keyboard shortcut to switch desktop
-        if "Darwin" in platform.version():
-            draw_text("PRESS BUTTON 1 OR Z", WIDTH//2, HEIGHT - 130, True)
-        else:
-            draw_text("PRESS BUTTON 1", WIDTH//2, HEIGHT - 130, True)
-            draw_text("OR LEFT CONTROL", WIDTH//2, HEIGHT - 70, True)
+        text = f"PRESS {SPECIAL_FONT_SYMBOLS['xb_a']} OR {'Z' if 'Darwin' in platform.version() else 'LEFT CONTROL'}"
+
+        # Draw start game text
+        draw_text(text, WIDTH//2, HEIGHT - 82, True)
 
         # Draw logo - centred on X axis, centred on top third of the screen on Y axis
         logo_img = images.logo

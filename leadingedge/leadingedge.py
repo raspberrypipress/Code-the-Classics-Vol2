@@ -126,9 +126,6 @@ SHOW_CPU_CAR_SPEEDS = False
 SHOW_DEBUG_TEXT = False
 SHOW_PROFILE_TIMINGS = False
 
-ANCHOR_CENTRE = ("center", "center")
-ANCHOR_CENTRE_BOTTOM = ("center", "bottom")
-
 FIXED_TIMESTEP = 1/60
 
 # These symbols substitute for the controller button images when displaying text.
@@ -775,7 +772,7 @@ def make_track():
         # Start gantry
         track.append(TrackPieceStartLine())
 
-        track.extend([TrackPiece() for i in range(50)])
+        track.extend([TrackPiece() for i in range(SECTION_SHORT)])
 
         # Because the camera is pointing down the negative Z axis, negative/positive X mean right/left from
         # camera's perspective

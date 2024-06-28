@@ -998,7 +998,7 @@ class Game:
         self.level_text = ""
 
         # Set up level
-        level_filename = "tilemaps/" + LEVEL_SEQUENCE[self.level_index % len(LEVEL_SEQUENCE)]
+        level_filename = LEVEL_SEQUENCE[self.level_index % len(LEVEL_SEQUENCE)]
         player_start_pos = self.load_level(level_filename)
 
         self.exit_open = False
@@ -1021,9 +1021,15 @@ class Game:
         # 0 for first time through the levels, 1 for second, etc
         level_cycle = self.level_index // len(LEVEL_SEQUENCE)
 
+        # sys.path[0] gets the folder containing the Python file we're running
+        # This is necessary because we could be running in an IDE where the default working folders is not the script
+        # folder but is instead the parent folder, or we could be running preinstalled on a Raspberry Pi in which case
+        # the current working folder is the user's home folder
+        path = os.path.join(sys.path[0], "tilemaps")
+
         # The map and tileset files are XML files. We're using Python's built in ElementTree module (aliased here as ET)
         # to access the tags/nodes within the XML files.
-        map_tree = ET.parse(filename)
+        map_tree = ET.parse(os.path.join(path, filename))
         map_root = map_tree.getroot()
 
         # Load background
@@ -1107,11 +1113,11 @@ class Game:
 
         # For the purpose of simplicity we assume that each map file only uses one tileset, which will be either the
         # forest or castle tileset. The tileset filename is specified in the 'tileset' tag within the root node
-        tileset_filename = "tilemaps/" + map_root.find("tileset").attrib.get("source")
+        tileset_filename = map_root.find("tileset").attrib.get("source")
 
         # Read tileset file, which specifies which tiles are collidable
         self.collision_tiles = set()
-        tileset_xml = ET.parse(tileset_filename)
+        tileset_xml = ET.parse(os.path.join(path, tileset_filename))
         for tile_node in tileset_xml.getroot().findall("tile"):
             # For now we'll just assume that any tile which has a node, has collision
             self.collision_tiles.add(int(tile_node.attrib["id"]))
@@ -1119,7 +1125,7 @@ class Game:
         # Load tileset image (if we haven't loaded it already)
         tileset_image_filename = tileset_xml.getroot().find("image").attrib["source"]
         if tileset_image_filename not in tileset_images:
-            tileset_images[tileset_image_filename] = pygame.image.load("tilemaps/" + tileset_image_filename)
+            tileset_images[tileset_image_filename] = pygame.image.load(os.path.join(path, tileset_image_filename))
         self.tileset_image = tileset_images[tileset_image_filename]
 
         return player_start_pos
@@ -1366,15 +1372,15 @@ def update_controls():
         joystick_controls.update()
 
 def get_save_folder():
-    # By default we save to the current working folder, which will usually be the same folder as the Python file
-    # But if the current working folder is the same as the user's home folder, write save data to a subfolder,
-    # so as not to pollute the home folder. This is relevant e.g. when the games are run from the pre-installed
-    # versions which come with Raspberry Pi OS
+    # By default, we save to the same folder as the Python file
+    # But if the current working folder is the same as the user's home folder, write save data to a subfolder of that,
+    # because the folder containing the Python file may not be writeable. This is relevant when the games are run from
+    # the pre-installed versions which come with Raspberry Pi OS
     # On Windows, the home folder is C:\Users\<username>\
     current_working_folder = os.getcwd()
     home_folder = os.path.expanduser('~')
     if current_working_folder != home_folder:
-        return current_working_folder
+        return sys.path[0]
     else:
         # Get a location within the user's home folder, then ensure the folder exists
         path = os.path.expanduser('~/.code-the-classics-vol-2')

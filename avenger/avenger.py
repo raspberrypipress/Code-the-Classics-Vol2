@@ -134,6 +134,7 @@ class KeyboardControls(Controls):
     def button_down(self, button):
         if button == 0:
             return keyboard.space
+        return False
 
 class JoystickControls(Controls):
     def __init__(self, joystick):

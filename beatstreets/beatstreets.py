@@ -625,10 +625,6 @@ class Fighter(ScrollHeightActor, ABC):
                 if attack.rear_attack:
                     facing_correct = not facing_correct
 
-                if DEBUG_SHOW_ATTACKS:
-                    debug_rect = Rect(self.x - (attack.reach if self.facing_x == -1 else 0), self.y - 5, attack.reach, 10)
-                    debug_drawcalls.append(lambda: screen.draw.filled_rect(debug_rect, (255, 0, 0)))
-
                 # Should attack hit this opponent?
                 if abs(vec.y) < opponent.half_hit_area.y and facing_correct and abs(vec.x) < attack.reach + opponent.half_hit_area.x:
                     opponent.hit(self, attack)
@@ -636,6 +632,11 @@ class Fighter(ScrollHeightActor, ABC):
                     # If we're using a weapon, it may have broken as a result of being used
                     if self.weapon is not None and self.weapon.is_broken():
                         self.drop_weapon()
+
+            if DEBUG_SHOW_ATTACKS:
+                attack_facing = self.facing_x * (-1 if attack.rear_attack else 1)
+                debug_rect = Rect(self.x - (attack.reach if attack_facing == -1 else 0), self.y - 5, attack.reach, 10)
+                debug_drawcalls.append(lambda: screen.draw.filled_rect(debug_rect, (255, 0, 0)))
 
     def hit(self, hitter, attack):
         # Hitter can be another fighter, or a weapon such as a barrel
@@ -2168,12 +2169,12 @@ class Game:
         if DEBUG_SHOW_BOUNDARY:
             screen.draw.rect(Rect(self.boundary.left - self.scroll_offset.x, self.boundary.top, self.boundary.width, self.boundary.height), (255,255,255))
 
+        # If there are any debug draw calls, execute them - used by DEBUG_SHOW_ATTACKS
         for func in debug_drawcalls:
-            if DEBUG_PROFILING:
-                print(p.get_ms())
             func()
 
         if DEBUG_PROFILING:
+            # Show profiler timing for everything not in another category
             print("rest: {0}".format(p.get_ms()))
 
     def draw_ui(self):

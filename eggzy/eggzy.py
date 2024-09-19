@@ -418,7 +418,7 @@ class GravityActor(CollideActor):
                 print("{0} detect: landed false, {1}".format(game.timer, self.vel_y))
             if self.fall_state == GravityActor.FallState.LANDED:
                 self.fall_state = GravityActor.FallState.FALLING
-            if self.vel_y != 0 and self.move(0, sign(self.vel_y), abs(self.vel_y)):
+            if self.move(0, sign(self.vel_y), abs(self.vel_y)):
                 if DEBUG_MOVEMENT:
                     print("move returned true")
                 # If move returned True, we must have either landed or hit our head on the ceiling

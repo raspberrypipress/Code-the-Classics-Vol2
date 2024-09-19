@@ -3,10 +3,7 @@
 # Graphics by Dan Malone
 # Music and sound effects by Allister Brimble
 # https://github.com/raspberrypipress/Code-the-Classics-Vol2.git
-# TODO BOOK URL
-
-# Celeste - designing the dash | Rock Paper Shotgun https://www.rockpapershotgun.com/celeste-dash
-# https://www.neoseeker.com/celeste/Celeste_Basic_Controls
+# https://store.rpipress.cc/products/code-the-classics-volume-ii
 
 import pygame, pgzero, pgzrun, sys, os
 import xml.etree.ElementTree as ET

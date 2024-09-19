@@ -3,7 +3,7 @@
 # Graphics by Dan Malone
 # Music and sound effects by Allister Brimble
 # https://github.com/raspberrypipress/Code-the-Classics-Vol2.git
-# TODO BOOK URL
+# https://store.rpipress.cc/products/code-the-classics-volume-ii
 
 import pygame, pgzero, pgzrun, math, sys, time, platform
 from abc import ABC, abstractmethod

@@ -3,7 +3,7 @@
 # Graphics by Dan Malone
 # Music and sound effects by Allister Brimble
 # https://github.com/raspberrypipress/Code-the-Classics-Vol2.git
-# TODO BOOK URL
+# https://store.rpipress.cc/products/code-the-classics-volume-ii
 
 # If the game window doesn't fit on the screen, you may need to turn off or reduce display scaling in the Windows/macOS settings
 # On Windows, you can uncomment the following two lines to fix the issue. It sets the program as "DPI aware"

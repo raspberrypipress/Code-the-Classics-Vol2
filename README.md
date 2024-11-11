@@ -1,5 +1,6 @@
-# Code-the-Classics-Vol2
-Example code, assets, and more from Code the Classics Volume II
+# Code the Classics Volume II
+
+## Example code, assets, and more from Code the Classics Volume II.
 
 Code the Classics Volume II features retro arcade games written by Andrew
 Gillett, ably assisted by Raspberry Pi co-founder and CEO Eben Upton along with

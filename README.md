@@ -10,10 +10,10 @@ wrote the stories that take you behind the scenes of the creation of the five
 classic arcade games featured in this book. What’s more, the book opens with a
 foreword from Dr. David Braben, co-creator of best-selling computer game _Elite_.
 
-<p style="text-align:center;">
+<p align="center">
 Buy your copy now: <a href="https://store.rpipress.cc/products/code-the-classics-volume-ii">Raspberry Pi Press</a> | <a href="https://www.amazon.com/Code-Classics-II-Simon-Brew/dp/1916868045">Amazon US</a>
 </p>
 
-<p style="text-align:center;">
+<p align="center">
 <img src="https://raw.githubusercontent.com/raspberrypipress/Code-the-Classics-Vol2/refs/heads/main/cover/9781916868052_FC.jpg" alt="Code the Classics Volume II cover image" />
 </p>

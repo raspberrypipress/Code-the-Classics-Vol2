@@ -138,11 +138,12 @@ def clamp(value, min_val, max_val):
     return min(max(value, min_val), max_val)
 
 def remap(old_val, old_min, old_max, new_min, new_max):
-    # todo explain
+    # Remap a number from one range to a different range
+    # e.g. remapping 5 from source range of 0 to 10, to destination range of 0 to 100, becomes 50
     return (new_max - new_min)*(old_val - old_min) / (old_max - old_min) + new_min
 
 def remap_clamp(old_val, old_min, old_max, new_min, new_max):
-    # todo explain
+    # Like remap, but constrains the resulting value so that it can't be outside the new range
     # These first two lines are in case new_min and new_max are inverted
     lower_limit = min(new_min, new_max)
     upper_limit = max(new_min, new_max)
@@ -294,14 +295,14 @@ with open("attacks.json") as attacks_file:
         # Turn values in the dictionary into constructor parameters of the Attack class
         ATTACKS[key] = Attack(**value)
 
-# The ScrollHeightActor class extends Pygame Zero's Actor class by providing the attribute 'vpos', which stores the object's
-# current position using Pygame's Vector2 class. All code should change or read the position via vpos, as opposed to
-# Actor's x/y or pos attributes. When the object is drawn, we set self.pos (equivalent to setting both self.x and
-# self.y) based on vpos, but taking scrolling into account.
+# The ScrollHeightActor class extends Pygame Zero's Actor class by providing the attribute 'vpos', which stores the
+# object's current position using Pygame's Vector2 class. All code should change or read the position via vpos, as
+# opposed to Actor's x/y or pos attributes. When the object is drawn, we set self.pos (equivalent to setting both
+# self.x and self.y) based on vpos, but taking scrolling into account.
 # It also includes the attribute height_above_ground which allows an actor to be considered to be in the air. This
 # should be taken into account when determining draw order, as a fighter who is jumping will be further up the screen
 # on the Y axis than if they were on the ground, but it's their Y position in relation to the ground which should
-# determine whether they're drawn behind or in front of other actors. todo reword
+# determine whether they're drawn behind or in front of other actors.
 class ScrollHeightActor(Actor):
     def __init__(self, img, pos, anchor=None, separate_shadow=False):
         super().__init__(img, pos, anchor=anchor)

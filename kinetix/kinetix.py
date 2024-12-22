@@ -185,7 +185,8 @@ LEVELS = [
 
 def get_mirrored_level(level):
     # For each row, return a new row which includes the existing row plus
-    # a mirrored version. todo explain row[-2::-1]
+    # a mirrored version.
+    # row[-2::-1] produces a mirorred version of the list, excluding the last element
     return [row + row[-2::-1] for row in level]
 
 class Controls(ABC):

@@ -157,18 +157,23 @@ class Profiler:
 # Utility functions
 
 def remap(old_val, old_min, old_max, new_min, new_max):
-    # todo explain
+    # Remap a number from one range to a different range
+    # e.g. remapping 5 from source range of 0 to 10, to destination range of 0 to 100, becomes 50
     return (new_max - new_min)*(old_val - old_min) / (old_max - old_min) + new_min
 
 def remap_clamp(old_val, old_min, old_max, new_min, new_max):
-    # todo explain
+    # Like remap, but constrains the resulting value so that it can't be outside the new range
     # These first two lines are in case new_min and new_max are inverted
     lower_limit = min(new_min, new_max)
     upper_limit = max(new_min, new_max)
     return min(upper_limit, max(lower_limit, remap(old_val, old_min, old_max, new_min, new_max)))
 
 def inverse_lerp(a, b, value):
-    # todo explain
+    # Lerp (linear interpolate) returns the number that is 'value' between a and b, where value is a
+    # number typically between 0 and 1, 0 means return a, 1 means return b, 0.5 means return a number halfway between
+    # a and b, etc.
+    # Inverse lerp does the opposite, returning a number which indicates where 'value' falls between a and b
+    # e.g. if a is 10 and b is 20 and value is 15, it returns 0.5 as 15 is halfway between 10 and 20
     if a != b:
         return min(1, max(0, ((value - a) / (b - a))))
     return 0

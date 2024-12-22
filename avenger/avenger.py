@@ -59,11 +59,12 @@ def sign(x):
         return -1 if x < 0 else 1
 
 def remap(old_val, old_min, old_max, new_min, new_max):
-    # todo explain
+    # Remap a number from one range to a different range
+    # e.g. remapping 5 from source range of 0 to 10, to destination range of 0 to 100, becomes 50
     return (new_max - new_min)*(old_val - old_min) / (old_max - old_min) + new_min
 
 def remap_clamp(old_val, old_min, old_max, new_min, new_max):
-    # todo explain
+    # Like remap, but constrains the resulting value so that it can't be outside the new range
     # These first two lines are in case new_min and new_max are inverted
     lower_limit = min(new_min, new_max)
     upper_limit = max(new_min, new_max)

@@ -1,0 +1,45 @@
+name: Errata
+description: Submit an issue with the book
+title: "[Errata]: "
+labels: ["errata", "triage"]
+projects: ["raspberrypipress/Code-the-Classics-Vol2"]
+assignees:
+  - bjepson
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have you found an error in the book or something that is unclear? Please let us know so we can update it in a future printing.
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details (optional, will be publicly viewable)
+      description: If you share your email address with us, we may contact you for more information.
+      placeholder: ex. email@example.com
+    validations:
+      required: false
+  - type: dropdown
+    id: format
+    attributes:
+      label: What format of the book has this error? You may select more than one option.
+      multiple: true
+      options:
+        - Print
+        - PDF
+        - ePub
+    validations:
+      required: true
+  - type: input
+    id: pageno
+    attributes:
+      label: Page Number or Section
+      description: Where was the error located?
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Detailed description
+      description: Please let us know in detail about this error. You can attach screenshots and any supporting files in this field as well.
+    validations:
+      required: true

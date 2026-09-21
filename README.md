@@ -18,3 +18,8 @@ Buy your copy now: <a href="https://store.rpipress.cc/products/code-the-classics
 <p align="center">
 <img src="https://raw.githubusercontent.com/raspberrypipress/Code-the-Classics-Vol2/refs/heads/main/cover/9781916868052_FC.jpg" alt="Code the Classics Volume II cover image" />
 </p>
+
+## Licensing
+
+- **Code:** The source code in this repository is licensed under the [Apache 2.0 License](LICENSE-code.md).
+- **Assets:** All visual assets and audio, and 3D models located in subdirectories named `images/`, `music/`, and `sounds/` are licensed under CC BY-NC-SA 3.0. To view a copy of this licence, visit https://creativecommons.org/licenses/by-nc-sa/3.0/.
